@@ -30,7 +30,7 @@ public class Categoria {
 	private Integer id;
 
 	@NotBlank(message = "O nome da categoria é obrigatório")
-	@Size(min = 5, max = 100, message = "O nome da categoria não deve conter mais de 100 caracteres")
+	@Size(min = 3, max = 100, message = "O nome da categoria não deve conter mais de 100 caracteres")
 	@Column(name = "nome")
 	private String nome;
 
