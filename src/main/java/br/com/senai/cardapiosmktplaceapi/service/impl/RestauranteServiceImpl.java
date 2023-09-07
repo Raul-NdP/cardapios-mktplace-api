@@ -35,7 +35,7 @@ public class RestauranteServiceImpl implements RestauranteService{
 		Restaurante outroRestaurante = restaurantesRepository.buscarPor(restaurante.getNome());
 		
 		if (outroRestaurante != null) {
-			if (outroRestaurante.isPersistido()) {
+			if (restaurante.isPersistido()) {
 				Preconditions.checkArgument(outroRestaurante.equals(restaurante), 
 						"O nome do restaurante ja está em uso");
 			}

@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.senai.cardapiosmktplaceapi.entity.Categoria;
 import br.com.senai.cardapiosmktplaceapi.entity.Restaurante;
+import br.com.senai.cardapiosmktplaceapi.entity.Secao;
 import br.com.senai.cardapiosmktplaceapi.entity.enums.Status;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -13,11 +13,11 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
 @Validated
-public interface RestauranteService {
+public interface SecaoService {
 	
-	public Restaurante salvar(
-			@NotNull(message = "O restaurante é obrigatório")
-			Restaurante restaurante);
+	public Secao salvar(
+			@NotNull(message = "A seção é obrigatória")
+			Secao secao);
 	
 	public void atualizarStatusPor(
 			@NotNull(message = "O id é obrigatório")
@@ -26,20 +26,18 @@ public interface RestauranteService {
 			@NotNull(message = "O status é obrigatório")
 			Status status);
 	
-	public Page<Restaurante> listarPor(
+	public Page<Secao> listarPor(
 			@NotBlank(message = "O nome é obrigatório")
-			@Size(min = 3, max = 250, message = "O nome da categoria deve conter entre 3 e 250 caracteres")
+			@Size(min = 3, max = 100, message = "O nome da categoria deve conter entre 3 e 100 caracteres")
 			String nome, 
-			@NotNull(message = "A categoria é obrigatória")
-			Categoria categoria,
 			Pageable paginacao);
 	
-	public Restaurante buscarPor(
+	public Secao buscarPor(
 			@NotNull(message = "O id é obrigatório")
 			@Positive(message = "O id deve ser positivo")
 			Integer id);
 	
-	public Restaurante excluirPor(
+	public Secao excluirPor(
 			@NotNull(message = "O id é obrigatório")
 			@Positive(message = "O id deve ser positivo")
 			Integer id);
