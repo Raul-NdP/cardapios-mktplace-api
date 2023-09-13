@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import br.com.senai.cardapiosmktplaceapi.entity.Categoria;
 import br.com.senai.cardapiosmktplaceapi.entity.Opcao;
 import br.com.senai.cardapiosmktplaceapi.entity.Restaurante;
-import br.com.senai.cardapiosmktplaceapi.entity.Secao;
 import br.com.senai.cardapiosmktplaceapi.entity.enums.Status;
 
 @Repository
@@ -21,13 +20,12 @@ public interface OpcoesRepository extends JpaRepository<Opcao, Integer>{
 				+ "JOIN FETCH o.restaurante "
 				+ "JOIN FETCH o.categoria "
 				+ "WHERE o.id = :id")
-	public Secao buscarPor(Integer id);
+	public Opcao buscarPor(Integer id);
 	
 	@Query(value = "SELECT o "
 				+ "FROM Opcao o "
-			
 				+ "WHERE Upper(o.nome) = Upper(:nome)")
-	public Secao buscarPor(String nome);
+	public Opcao buscarPor(String nome);
 	
 	@Query(value = "SELECT o "
 				+ "FROM Opcao o "
@@ -42,7 +40,7 @@ public interface OpcoesRepository extends JpaRepository<Opcao, Integer>{
 						+ "WHERE Upper(o.nome) LIKE Upper(:nome) "
 						+ "AND o.categoria = :categoria"
 						+ "AND o.restaurante = :restaurante")
-	public Page<Secao> listarPor(String nome, Categoria categoria, Restaurante restaurante, Pageable paginacao);
+	public Page<Opcao> listarPor(String nome, Categoria categoria, Restaurante restaurante, Pageable paginacao);
 	
 	@Modifying
 	@Query(value = "UPDATE Opcao o "

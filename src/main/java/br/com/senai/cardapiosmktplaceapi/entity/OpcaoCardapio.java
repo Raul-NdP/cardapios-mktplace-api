@@ -20,6 +20,7 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
@@ -32,25 +33,28 @@ public class OpcaoCardapio {
 	@NotNull(message = "O id da opção do cardapio é obrigatório")
 	private OpcaoCardapioId id;
 	
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("idCardapio")
 	@NotNull(message = "O cardapio é obrigatório")
 	@JoinColumn(name = "id_cardapio")
 	private Cardapio cardapio;
 	
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("idOpcao")
 	@NotNull(message = "A opção é obrigatória")
 	@JoinColumn(name = "id_opcao")
 	private Opcao opcao;
 	
+	@ToString.Exclude
 	@ManyToOne(fetch = FetchType.LAZY)
 	@NotNull(message = "A seção é obrigatória")
 	@JoinColumn(name = "id_secao")
 	private Secao secao;
 	
 	@DecimalMin(value = "00.00", inclusive = false, 
-			message = "O preço deve ser positivo")
+			message = "O preço não pode ser inferior a R$0.01")
 	@Digits(integer = 9, fraction = 2, message = "O preço deve possuir o formato 'NNNNNNNNN.NN'")
 	@Column(name = "preco")
 	private BigDecimal preco;
