@@ -20,12 +20,12 @@ public interface CardapiosRepository extends JpaRepository<Cardapio, Integer>{
 			+ "JOIN FETCH c.opcoes oc "
 			+ "JOIN FETCH oc.opcao o "
 			+ "JOIN FETCH oc.secao s "
-			+ "HWERE c.restaurante = :restaurante "
+			+ "WHERE c.restaurante = :restaurante "
 			+ "AND o.status = 'A' "
 			+ "ORDER BY oc.recomendado DESC, o.nome", 
 			countQuery = "Select c "
 						+ "FROM Cardapio c "
-						+ "HWERE c.restaurante = :restaurante")
+						+ "WHERE c.restaurante = :restaurante")
 	public Page<Cardapio> listarPor(Restaurante restaurante, Pageable paginacao);
 	
 	@Query(value = "Select c "

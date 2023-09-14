@@ -38,7 +38,7 @@ public interface OpcoesRepository extends JpaRepository<Opcao, Integer>{
 			countQuery = "SELECT Count(o) "
 						+ "FROM Opcao o "
 						+ "WHERE Upper(o.nome) LIKE Upper(:nome) "
-						+ "AND o.categoria = :categoria"
+						+ "AND o.categoria = :categoria "
 						+ "AND o.restaurante = :restaurante")
 	public Page<Opcao> listarPor(String nome, Categoria categoria, Restaurante restaurante, Pageable paginacao);
 	
