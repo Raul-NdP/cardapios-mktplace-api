@@ -24,8 +24,6 @@ public class InitApp {
 	public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
 		return args -> {
 			
-			System.out.println("Subiu");
-			
 		};
 	}
 

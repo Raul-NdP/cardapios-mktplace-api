@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.validation.annotation.Validated;
 
-import br.com.senai.cardapiosmktplaceapi.entity.Restaurante;
 import br.com.senai.cardapiosmktplaceapi.entity.Secao;
 import br.com.senai.cardapiosmktplaceapi.entity.enums.Status;
 import jakarta.validation.constraints.NotBlank;

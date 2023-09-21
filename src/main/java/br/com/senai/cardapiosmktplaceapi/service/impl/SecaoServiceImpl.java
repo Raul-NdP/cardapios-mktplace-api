@@ -7,16 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
-import br.com.senai.cardapiosmktplaceapi.entity.Categoria;
-import br.com.senai.cardapiosmktplaceapi.entity.Restaurante;
 import br.com.senai.cardapiosmktplaceapi.entity.Secao;
 import br.com.senai.cardapiosmktplaceapi.entity.enums.Status;
 import br.com.senai.cardapiosmktplaceapi.repository.SecoesRepository;
 import br.com.senai.cardapiosmktplaceapi.service.SecaoService;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
 
 @Service
 public class SecaoServiceImpl implements SecaoService {
