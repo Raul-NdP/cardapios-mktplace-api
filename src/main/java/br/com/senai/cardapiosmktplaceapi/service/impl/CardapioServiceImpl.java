@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,7 @@ import br.com.senai.cardapiosmktplaceapi.repository.OpcoesRepository;
 import br.com.senai.cardapiosmktplaceapi.repository.RestaurantesRepository;
 import br.com.senai.cardapiosmktplaceapi.repository.SecoesRepository;
 import br.com.senai.cardapiosmktplaceapi.service.CardapioService;
+import br.com.senai.cardapiosmktplaceapi.service.RestauranteService;
 
 @Service
 public class CardapioServiceImpl implements CardapioService{
@@ -41,6 +43,10 @@ public class CardapioServiceImpl implements CardapioService{
 	
 	@Autowired
 	private RestaurantesRepository restaurantesRepository;
+	
+	@Autowired
+	@Qualifier("restauranteServiceImpl")
+	private RestauranteService restauranteService;
 	
 	private Restaurante getRestaurantePor(NovoCardapio novoCardapio) {
 		
@@ -93,12 +99,12 @@ public class CardapioServiceImpl implements CardapioService{
 		for (NovaOpcaoCardapio novaOpcao : opcoesCardapio) {
 			int qtdOcorrencias = 0;
 			for (NovaOpcaoCardapio outraOpcao : opcoesCardapio) {
-				if (novaOpcao.getIdOpcao().equals(outraOpcao.getIdOpcao())) {
+				if (novaOpcao.getIdDaOpcao().equals(outraOpcao.getIdDaOpcao())) {
 					qtdOcorrencias++;
 				}
 			}
 			Preconditions.checkArgument(qtdOcorrencias == 1, 
-					"A opção '" + novaOpcao.getIdOpcao() + "' está duplicada no cardápio");
+					"A opção '" + novaOpcao.getIdDaOpcao() + "' está duplicada no cardápio");
 		}
 		
 	}
@@ -117,7 +123,7 @@ public class CardapioServiceImpl implements CardapioService{
 		this.validarDuplicidadeEm(novoCardapio.getOpcoes());
 		
 		for (NovaOpcaoCardapio novaOpcao : novoCardapio.getOpcoes()) {
-			Opcao opcao = getOpcaoPor(novaOpcao.getIdOpcao(), restaurante);
+			Opcao opcao = getOpcaoPor(novaOpcao.getIdDaOpcao(), restaurante);
 			Secao secao = getSecaoPor(novaOpcao);
 			OpcaoCardapioId id = new OpcaoCardapioId(cardapioSalvo.getId(), opcao.getId());
 			OpcaoCardapio opcaoCardapio = new OpcaoCardapio();
@@ -137,10 +143,16 @@ public class CardapioServiceImpl implements CardapioService{
 	@Override
 	public Cardapio alterar(CardapioSalvo cardapioSalvo) {
 		
-		Restaurante restaurante = restaurantesRepository.buscarPor(
+		Restaurante restaurante = restauranteService.buscarPor(
 				cardapioSalvo.getRestaurante().getId());
 		
 		Cardapio cardapio = cardapiosRepository.buscarPor(cardapioSalvo.getId());
+		
+		Preconditions.checkNotNull(cardapio, 
+				"Não existe cardápio vinculado ao id '" + cardapioSalvo.getId() + "'");
+		Preconditions.checkArgument(restaurante.equals(cardapio.getRestaurante()), 
+				"O restaurante do cardápio não pode ser alterado");
+		
 		cardapio.setNome(cardapioSalvo.getNome());
 		cardapio.setDescricao(cardapioSalvo.getDescricao());
 		cardapio.setRestaurante(restaurante);
@@ -198,9 +210,11 @@ public class CardapioServiceImpl implements CardapioService{
 	@Override
 	public void atualizarStatusPor(Integer id, Status status) {
 		
-		Cardapio cardapio = buscarPor(id);
+		Cardapio cardapioEncontrado = cardapiosRepository.buscarPor(id);
 		
-		Preconditions.checkArgument(cardapio.getStatus() == status, 
+		Preconditions.checkNotNull(cardapioEncontrado, 
+				"Não foi encontrado cardápio para o id informado");
+		Preconditions.checkArgument(cardapioEncontrado.getStatus() != status, 
 				"O status informado já foi salvo anteriormente");
 		
 		this.cardapiosRepository.atualizarPor(id, status);

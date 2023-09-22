@@ -19,7 +19,7 @@ public class NovaOpcaoCardapio {
 	
 	@Positive(message = "O id da opção deve ser positivo")
 	@NotNull(message = "O id da opção é obrigatório")
-	private Integer idOpcao;
+	private Integer idDaOpcao;
 	
 	@DecimalMin(value = "0.0", inclusive = false, message = "O preço não pode ser inferior a R$0.01")
 	@Digits(integer = 9, fraction = 2, message = "O preço deve possuir o formato 'NNNNNNNNN.NN'")
