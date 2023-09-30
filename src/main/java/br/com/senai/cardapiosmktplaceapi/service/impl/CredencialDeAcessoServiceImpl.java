@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.google.common.base.Preconditions;
 
@@ -11,6 +12,7 @@ import br.com.senai.cardapiosmktplaceapi.entity.Usuario;
 import br.com.senai.cardapiosmktplaceapi.repository.UsuariosRepository;
 import br.com.senai.cardapiosmktplaceapi.security.CredencialDeAcesso;
 
+@Service
 public class CredencialDeAcessoServiceImpl implements UserDetailsService{
 	
 	@Autowired

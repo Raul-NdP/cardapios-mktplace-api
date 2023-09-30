@@ -36,7 +36,7 @@ public class GerenciadorDeTokenJwt {
 				.getBody();
 	}
 	
-	public String gerarTokenPorLogin(String login) {
+	public String gerarTokenPor(String login) {
 		return Jwts.builder()
 				.setClaims(new HashMap<String, Object>())
 				.setSubject(login)
