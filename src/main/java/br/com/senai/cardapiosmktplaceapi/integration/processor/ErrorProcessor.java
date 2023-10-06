@@ -4,9 +4,11 @@ import java.io.Serializable;
 
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
+import org.springframework.stereotype.Component;
 
 import br.com.senai.cardapiosmktplaceapi.excecoes.IntegracaoException;
 
+@Component
 public class ErrorProcessor implements Processor, Serializable{
 	
 	private static final long serialVersionUID = 1L;

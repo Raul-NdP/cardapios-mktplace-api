@@ -4,7 +4,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.http.HttpMethods;
-import org.apache.camel.util.json.JsonObject;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class ToEmail extends RouteBuilder{
 					@Override
 					public void process(Exchange exchange) throws Exception {
 						Notificacao notificacao = exchange.getMessage().getBody(Notificacao.class);
-						JsonObject notificacaoJson = new JsonObject();
+						JSONObject notificacaoJson = new JSONObject();
 						notificacaoJson.put("destinatario", notificacao.getDestinatario());
 						notificacaoJson.put("titulo", notificacao.getTitulo());
 						notificacaoJson.put("mensagem", notificacao.getMensagem());
